@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+numba = "*"
+numpy = "*"
+dash = "*"
+dash-core-components = "*"
+dash-html-components = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.7"
