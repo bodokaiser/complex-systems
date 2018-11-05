@@ -6,15 +6,23 @@ import dash_core_components as core
 from plotly import graph_objs as go
 
 from dynamic import roessler_naive
+from dynamic import roessler_rk4
 
 layout = html.Div(children=[
     html.H1(children='Roessler dynamics'),
 
-    html.Div(className='sliders-4', children=[
+    html.Div(className='sliders-5', children=[
         html.Div(children=[
             html.Label(id='roessler-label-n'),
             core.Slider(id='roessler-slider-n', included=False, min=1,
                         max=10000, step=1, value=1000),
+        ]),
+        html.Div(children=[
+            html.Label(id='roessler-label-impl', children='Implementation'),
+            core.Dropdown(id='roessler-option-impl', options=[
+                {'label': 'Naive', 'value': 'naive'},
+                {'label': '4th order Runge Kutta', 'value': 'rk4'}
+            ], value='naive')
         ]),
         html.Div(children=[
             html.Label(id='roessler-label-x0', children='X0'),
@@ -40,23 +48,23 @@ layout = html.Div(children=[
     html.Div(className='sliders-4', children=[
         html.Div(children=[
             html.Label(id='roessler-label-a'),
-            core.Slider(id='roessler-slider-a', included=False, min=-10.0,
-                        max=10.0, step=0.1, value=0.5),
+            core.Slider(id='roessler-slider-a', included=False, min=-1.0,
+                        max=1.0, step=0.01, value=0.0),
         ]),
         html.Div(children=[
             html.Label(id='roessler-label-b'),
-            core.Slider(id='roessler-slider-b', included=False, min=-10.0,
-                        max=10.0, step=0.1, value=0.5)
+            core.Slider(id='roessler-slider-b', included=False, min=-1.0,
+                        max=1.0, step=0.01, value=0.0)
         ]),
         html.Div(children=[
             html.Label(id='roessler-label-c'),
-            core.Slider(id='roessler-slider-c', included=False, min=-10.0,
-                        max=10.0, step=0.1, value=0.5)
+            core.Slider(id='roessler-slider-c', included=False, min=-1.0,
+                        max=1.0, step=0.01, value=0.0)
         ]),
         html.Div(children=[
             html.Label(id='roessler-label-h'),
             core.Slider(id='roessler-slider-h', included=False,
-                        min=1e-3, max=1.0, step=1e-3, value=1e-3)
+                        min=1e-6, max=1e-3, step=1e-6, value=1e-6)
         ])
     ])
 ])
@@ -86,8 +94,11 @@ def update_label_d(value):
   return f'd = {value}'
 
 
-def update_figure(x0, y0, z0, a, b, c, N, h):
-  x, y, z = roessler_naive(x0, y0, z0, a, b, c, N, h)
+def update_figure(x0, y0, z0, a, b, c, N, h, impl):
+  if impl == 'naive':
+    x, y, z = roessler_naive(x0, y0, z0, a, b, c, N, h)
+  if impl == 'rk4':
+    x, y, z = roessler_rk4(x0, y0, z0, a, b, c, N, h)
 
   return {
       'data': [
@@ -96,7 +107,8 @@ def update_figure(x0, y0, z0, a, b, c, N, h):
       ],
       'layout': {
           'xaxis': {'title': 'x'},
-          'yaxis': {'title': 'y'}
+          'yaxis': {'title': 'y'},
+          'zaxis': {'title': 'z'}
       }
   }
 
@@ -130,5 +142,6 @@ def connect(app):
       Input('roessler-slider-b', 'value'),
       Input('roessler-slider-c', 'value'),
       Input('roessler-slider-n', 'value'),
-      Input('roessler-slider-h', 'value')
+      Input('roessler-slider-h', 'value'),
+      Input('roessler-option-impl', 'value')
   ])(update_figure)
