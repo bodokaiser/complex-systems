@@ -3,7 +3,14 @@ import dash_core_components as core
 
 
 layout = html.Div(children=[
-    core.Link('Romance', href='/romance')
+    html.Ul(children=[
+        html.Li(children=[
+            core.Link('Romance', href='/romance'),
+        ]),
+        html.Li(children=[
+            core.Link('Rössler', href='/roessler')
+        ])
+    ])
 ])
 
 

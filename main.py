@@ -6,6 +6,7 @@ import dash_core_components as core
 
 from interface import index
 from interface import romance
+from interface import roessler
 
 
 app = Dash(__name__)
@@ -21,6 +22,7 @@ app.config.suppress_callback_exceptions = True
 
 index.connect(app)
 romance.connect(app)
+roessler.connect(app)
 
 
 @app.callback(Output('content', 'children'), [Input('route', 'pathname')])
@@ -30,6 +32,9 @@ def route(pathname):
 
   if pathname == '/romance':
     return romance.layout
+
+  if pathname == '/roessler':
+    return roessler.layout
 
 
 if __name__ == '__main__':
