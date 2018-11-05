@@ -1,6 +1,6 @@
 import numpy as np
 
-from numerics import ode_naive
+from numeric import ode_naive
 
 
 def romance(R0, J0, a, b, c, d, N, h):
