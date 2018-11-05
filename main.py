@@ -7,7 +7,7 @@ import dash_core_components as core
 from plotly import graph_objs as go
 from plotly import tools
 
-from system import romance
+from dynamics import romance
 
 app = Dash(__name__)
 
@@ -44,23 +44,23 @@ app.layout = html.Div(className='container', children=[
     html.Div(className='sliders-4', children=[
         html.Div(children=[
             html.Label(id='labela'),
-            core.Slider(id='slidera', included=False, min=-10.0, max=
-                        + 10.0, step=0.1, value=0.5),
+            core.Slider(id='slidera', included=False, min=-10.0, max=10.0,
+                        step=0.1, value=0.5),
         ]),
         html.Div(children=[
             html.Label(id='labelb'),
-            core.Slider(id='sliderb', included=False, min=-10.0, max=
-                        + 10.0, step=0.1, value=0.5)
+            core.Slider(id='sliderb', included=False, min=-10.0, max=10.0,
+                        step=0.1, value=0.5)
         ]),
         html.Div(children=[
             html.Label(id='labelc'),
-            core.Slider(id='sliderc', included=False, min=-10.0, max=
-                        + 10.0, step=0.1, value=0.5)
+            core.Slider(id='sliderc', included=False, min=-10.0, max=10.0,
+                        step=0.1, value=0.5)
         ]),
         html.Div(children=[
             html.Label(id='labeld'),
-            core.Slider(id='sliderd', included=False, min=-10.0, max=
-                        + 10.0, step=0.1, value=0.5)
+            core.Slider(id='sliderd', included=False, min=-10.0, max=10.0,
+                        step=0.1, value=0.5)
         ])
     ])
 ])
@@ -117,7 +117,7 @@ def update_figure(R0, J0, a, b, c, d, N, dt):
   trace3 = go.Scatter(x=J, y=dJdt, mode='markers', marker=dict(color='#444'))
 
   figure = tools.make_subplots(
-      cols=3, subplot_titles=('Romeo & Juliet', 'Romeo', 'Juliet'))
+      cols=3, subplot_titles=('Romeo & Julian', 'Romeo', 'Julian'))
 
   figure.append_trace(trace1, 1, 1)
   figure.append_trace(trace2, 1, 2)
