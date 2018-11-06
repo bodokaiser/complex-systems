@@ -9,6 +9,7 @@ numpy = "*"
 dash = "*"
 dash-core-components = "*"
 dash-html-components = "*"
+scipy = "*"
 
 [dev-packages]
 

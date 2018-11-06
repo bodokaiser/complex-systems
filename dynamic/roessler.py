@@ -24,7 +24,7 @@ def naive(x0, y0, z0, a, b, c, N, h):
   for i in range(N):
     xi, yi, zi = x[-1], y[-1], z[-1]
 
-    x.append(xi - p(yi, zi) * h)
+    x.append(xi + p(yi, zi) * h)
     y.append(yi + q(xi, yi, a) * h)
     z.append(zi + r(xi, zi, b, c) * h)
 
@@ -40,8 +40,8 @@ def rk4(x0, y0, z0, a, b, c, N, h):
 
     u1 = h * p(yi, zi)
     u2 = h * p(yi + h / 2, zi + u1 / 2)
-    u3 = h * p(xi + h / 2, zi + u2 / 2)
-    u4 = h * p(xi + h, zi + u3)
+    u3 = h * p(yi + h / 2, zi + u2 / 2)
+    u4 = h * p(yi + h, zi + u3)
 
     v1 = h * q(xi, yi, a)
     v2 = h * q(xi + h / 2, yi + v1 / 2, a)
