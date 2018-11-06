@@ -3,8 +3,6 @@ from dash.dependencies import Input, Output
 import dash_html_components as html
 import dash_core_components as core
 
-from plotly import graph_objs as go
-
 from dynamic import roessler_naive
 from dynamic import roessler_rk4
 
@@ -21,7 +19,7 @@ layout = html.Div(children=[
             html.Label(id='roessler-label-impl', children='Implementation'),
             core.Dropdown(id='roessler-option-impl', options=[
                 {'label': 'Naive', 'value': 'naive'},
-                {'label': '4th order Runge Kutta', 'value': 'rk4'}
+                {'label': 'Runge Kutta', 'value': 'rk4'}
             ], value='rk4')
         ]),
         html.Div(children=[
@@ -84,18 +82,47 @@ def update_figure(x0, y0, z0, a, b, c, N, h, impl):
   if impl == 'rk4':
     x, y, z = roessler_rk4(x0, y0, z0, a, b, c, N, h)
 
-  print(x)
-
   return {
       'data': [
-          go.Scatter3d(x=x, y=y, z=y, mode='markers',
-                       marker=dict(color='#444', size=1))
+          {
+              'x': x, 'y': y, 'z': y,
+              'type': 'scatter3d',
+              'mode': 'markers',
+              'marker': {'color': '#444', 'size': 2}
+          },
+          {
+              'x': x, 'y': y,
+              'type': 'scatter',
+              'mode': 'markers',
+              'marker': {'color': '#444', 'size': 2}
+          }
       ],
       'layout': {
-          'xaxis': {'title': 'x'},
-          'yaxis': {'title': 'y'},
-          'zaxis': {'title': 'z'},
-          'height': 600
+          'scene': {
+              'domain': {
+                  'x': [0, 0.6],
+                  'y': [0, 1.0]
+              },
+              'xaxis': {'title': 'x'},
+              'yaxis': {'title': 'y'},
+              'camera': {
+                  'up': {'x': 0, 'y': 1, 'z': 0},
+                  'center': {'x': 0, 'y': 0, 'z': 0},
+                  'eye': {'x': 0.1, 'y': -2.5, 'z': 0.1}
+              }
+          },
+          'xaxis': {
+              'title': 'x',
+              'anchor': 'y',
+              'domain': [0.6, 1.0]
+          },
+          'yaxis': {
+              'title': 'y',
+              'anchor': 'x',
+              'domain': [0.2, 0.8]
+          },
+          'height': 560,
+          'showlegend': False
       }
   }
 
