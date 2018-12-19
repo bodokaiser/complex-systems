@@ -25,10 +25,27 @@ pipenv install --dev -e .
 The `--dev -e` flags install the `dynamics` directory as a package such that
 we can easily import it from the `dashboards` and `notebooks` subdirectories.
 
+### Dashboards
+
 Run the dashboard web application:
 ```shell
 pipenv run python dashboards/roessler.py
 ```
 
+### Notebooks
+
+In order to run notebooks we need to install [jupyter][3] and register the
+environment as kernel. This can be done via:
+```shell
+pipenv run python -m ipykernel install --user --name=complex-systems
+```
+
+Then start a [jupyter][3] notebook server in the notebooks directory:
+```shell
+cd notebooks
+pipenv run jupyter notebook
+```
+
 [1]: https://plot.ly/products/dash
 [2]: https://docs.pipenv.org/
+[3]: https://jupyter.org

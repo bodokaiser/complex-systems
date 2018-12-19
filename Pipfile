@@ -10,6 +10,7 @@ dash = "*"
 dash-core-components = "*"
 dash-html-components = "*"
 scipy = "*"
+jupyter = "*"
 
 [dev-packages]
 complex-systems = {editable = true,path = "."}
