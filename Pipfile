@@ -12,6 +12,7 @@ dash-html-components = "*"
 scipy = "*"
 
 [dev-packages]
+complex-systems = {editable = true,path = "."}
 
 [requires]
 python_version = "3.7"

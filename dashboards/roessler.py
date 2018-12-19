@@ -1,3 +1,4 @@
+from dash import Dash
 from dash.dependencies import Input, Output
 
 import dash_html_components as html
@@ -5,10 +6,12 @@ import dash_core_components as core
 
 from scipy.signal import argrelmax
 
-from dynamic import roessler_naive
-from dynamic import roessler_rk4
+from dynamics import roessler_naive
+from dynamics import roessler_rk4
 
-layout = html.Div(children=[
+app = Dash(__name__)
+
+app.layout = html.Div(children=[
     html.H1(children='Roessler dynamics'),
 
     html.Div(className='sliders-5', children=[
@@ -77,14 +80,32 @@ layout = html.Div(children=[
 ])
 
 
+@app.callback(Output('roessler-label-n', 'children'), [
+    Input('roessler-slider-n', 'value')
+])
 def update_label_n(value):
   return f'N = {value}'
 
 
+@app.callback(Output('roessler-label-h', 'children'), [
+    Input('roessler-slider-h', 'value')
+])
 def update_label_h(value):
   return f'Δt = {value}'
 
 
+@app.callback(Output('roessler-graph', 'figure'), [
+    Input('roessler-input-x0', 'value'),
+    Input('roessler-input-y0', 'value'),
+    Input('roessler-input-z0', 'value'),
+    Input('roessler-input-a', 'value'),
+    Input('roessler-input-b', 'value'),
+    Input('roessler-input-c', 'value'),
+    Input('roessler-slider-n', 'value'),
+    Input('roessler-slider-h', 'value'),
+    Input('roessler-option-impl', 'value'),
+    Input('roessler-option-view', 'value')
+])
 def update_figure(x0, y0, z0, a, b, c, N, h, impl, view):
   if impl == 'naive':
     x, y, z = roessler_naive(x0, y0, z0, a, b, c, N, h)
@@ -148,24 +169,5 @@ def update_figure(x0, y0, z0, a, b, c, N, h, impl, view):
   }
 
 
-def connect(app):
-  app.callback(Output('roessler-label-n', 'children'), [
-      Input('roessler-slider-n', 'value')
-  ])(update_label_n)
-
-  app.callback(Output('roessler-label-h', 'children'), [
-      Input('roessler-slider-h', 'value')
-  ])(update_label_h)
-
-  app.callback(Output('roessler-graph', 'figure'), [
-      Input('roessler-input-x0', 'value'),
-      Input('roessler-input-y0', 'value'),
-      Input('roessler-input-z0', 'value'),
-      Input('roessler-input-a', 'value'),
-      Input('roessler-input-b', 'value'),
-      Input('roessler-input-c', 'value'),
-      Input('roessler-slider-n', 'value'),
-      Input('roessler-slider-h', 'value'),
-      Input('roessler-option-impl', 'value'),
-      Input('roessler-option-view', 'value')
-  ])(update_figure)
+if __name__ == '__main__':
+  app.run_server(debug=True)

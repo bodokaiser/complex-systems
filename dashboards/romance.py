@@ -1,3 +1,4 @@
+from dash import Dash
 from dash.dependencies import Input, Output
 
 import dash_html_components as html
@@ -6,9 +7,12 @@ import dash_core_components as core
 from plotly import graph_objs as go
 from plotly import tools
 
-from dynamic import romance_naive
+from dynamics import romance_naive
 
-layout = html.Div(children=[
+
+app = Dash(__name__)
+
+app.layout = html.Div(children=[
     html.H1(children='Romance dynamics'),
 
     html.Div(className='sliders-4', children=[
@@ -63,30 +67,58 @@ layout = html.Div(children=[
 ])
 
 
+@app.callback(Output('romance-label-n', 'children'), [
+    Input('romance-slider-n', 'value')
+])
 def update_label_n(value):
   return f'N = {value}'
 
 
+@app.callback(Output('romance-label-h', 'children'), [
+    Input('romance-slider-h', 'value')
+])
 def update_label_h(value):
   return f'Δt = {value}'
 
 
+@app.callback(Output('romance-label-a', 'children'), [
+    Input('romance-slider-a', 'value')
+])
 def update_label_a(value):
   return f'a = {value}'
 
 
+@app.callback(Output('romance-label-b', 'children'), [
+    Input('romance-slider-b', 'value')
+])
 def update_label_b(value):
   return f'b = {value}'
 
 
+@app.callback(Output('romance-label-c', 'children'), [
+    Input('romance-slider-c', 'value')
+])
 def update_label_c(value):
   return f'c = {value}'
 
 
+@app.callback(Output('romance-label-d', 'children'), [
+    Input('romance-slider-d', 'value')
+])
 def update_label_d(value):
   return f'd = {value}'
 
 
+@app.callback(Output('romance-graph', 'figure'), [
+    Input('romance-input-r0', 'value'),
+    Input('romance-input-j0', 'value'),
+    Input('romance-slider-a', 'value'),
+    Input('romance-slider-b', 'value'),
+    Input('romance-slider-c', 'value'),
+    Input('romance-slider-d', 'value'),
+    Input('romance-slider-n', 'value'),
+    Input('romance-slider-h', 'value')
+])
 def update_figure(R0, J0, a, b, c, d, N, h):
   R, J = romance_naive(R0, J0, a, b, c, d, N, h)
 
@@ -115,38 +147,5 @@ def update_figure(R0, J0, a, b, c, d, N, h):
   return figure
 
 
-def connect(app):
-  app.callback(Output('romance-label-n', 'children'), [
-      Input('romance-slider-n', 'value')
-  ])(update_label_n)
-
-  app.callback(Output('romance-label-h', 'children'), [
-      Input('romance-slider-h', 'value')
-  ])(update_label_h)
-
-  app.callback(Output('romance-label-a', 'children'), [
-      Input('romance-slider-a', 'value')
-  ])(update_label_a)
-
-  app.callback(Output('romance-label-b', 'children'), [
-      Input('romance-slider-b', 'value')
-  ])(update_label_b)
-
-  app.callback(Output('romance-label-c', 'children'), [
-      Input('romance-slider-c', 'value')
-  ])(update_label_c)
-
-  app.callback(Output('romance-label-d', 'children'), [
-      Input('romance-slider-d', 'value')
-  ])(update_label_d)
-
-  app.callback(Output('romance-graph', 'figure'), [
-      Input('romance-input-r0', 'value'),
-      Input('romance-input-j0', 'value'),
-      Input('romance-slider-a', 'value'),
-      Input('romance-slider-b', 'value'),
-      Input('romance-slider-c', 'value'),
-      Input('romance-slider-d', 'value'),
-      Input('romance-slider-n', 'value'),
-      Input('romance-slider-h', 'value')
-  ])(update_figure)
+if __name__ == '__main__':
+  app.run_server(debug=True)

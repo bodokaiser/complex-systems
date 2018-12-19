@@ -20,12 +20,14 @@ cd complex-systems
 
 Use [pipenv][2] to install the dependencies and setup a clean virtualenv:
 ```shell
-pipenv install
+pipenv install --dev -e .
 ```
+The `--dev -e` flags install the `dynamics` directory as a package such that
+we can easily import it from the `dashboards` and `notebooks` subdirectories.
 
-Finally run the application:
+Run the dashboard web application:
 ```shell
-pipenv run python main.py
+pipenv run python dashboards/roessler.py
 ```
 
 [1]: https://plot.ly/products/dash
