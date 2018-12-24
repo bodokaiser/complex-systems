@@ -1,3 +1,4 @@
+from dynamics.sine import sine_map
 from dynamics.logistic import logistic_map
 
 from dynamics.romance import naive as romance_naive
