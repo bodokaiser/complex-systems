@@ -46,6 +46,11 @@ cd notebooks
 pipenv run jupyter notebook
 ```
 
+As an alternative you can pass the GitHub url of the notebooks to a service
+like [nbviewer][4]. The notebook renderer built into GitHub is not able to
+render interactive plotly diagrams.
+
 [1]: https://plot.ly/products/dash
 [2]: https://docs.pipenv.org/
 [3]: https://jupyter.org
+[4]: https://nbviewer.jupyter.org

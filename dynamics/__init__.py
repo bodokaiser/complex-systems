@@ -1,5 +1,6 @@
 from dynamics.util import correlation_sum_1d
 from dynamics.util import correlation_sum_2d
+from dynamics.util import correlation_sum_3d
 
 from dynamics.sine import sine_map
 from dynamics.logistic import logistic_map
