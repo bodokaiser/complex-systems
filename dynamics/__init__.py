@@ -1,6 +1,8 @@
 from dynamics.sine import sine_map
 from dynamics.logistic import logistic_map
 
+from dynamics.random import autoregression
+
 from dynamics.romance import naive as romance_naive
 
 from dynamics.lorenz import naive as lorenz_naive
