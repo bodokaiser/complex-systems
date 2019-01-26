@@ -4,6 +4,7 @@ from dynamics.util.gaussianize import inverse_transform as gaussianize_inverse_t
 from dynamics.util.correlation import sum_1d as correlation_sum_1d
 from dynamics.util.correlation import sum_2d as correlation_sum_2d
 from dynamics.util.correlation import sum_3d as correlation_sum_3d
+from dynamics.util.embedding import delay as delay_embedding
 
 from dynamics.sine import sine_map
 from dynamics.logistic import logistic_map
