@@ -11,6 +11,7 @@ dash-core-components = "*"
 dash-html-components = "*"
 scipy = "*"
 jupyter = "*"
+networkx = "*"
 
 [dev-packages]
 complex-systems = {editable = true,path = "."}
