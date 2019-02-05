@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "5edc3de1f18491200a073b0c5af574899e0e85011f5811cd6bcaf2cb86bb999d"
+            "sha256": "30add8c36d9df44e21a295589dc253c4c7b45db7fcdac9366ac21adaab07caba"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -516,6 +516,16 @@
                 "sha256:b694b3d9288dbd81685c5d2e7140b81365d46c29f5db4bc659de5aa6b98780f8"
             ],
             "version": "==0.4.2"
+        },
+        "torch": {
+            "hashes": [
+                "sha256:6154a8b92d869982d586d6a31955071d4bceb89e170153efd2861555bccd84c1",
+                "sha256:b71e072dc68ef49afc3d9aaf0af8bcb20ce03bfce5cb43ee45be2d9cae5edf40",
+                "sha256:d7a88d0e8c58effe46a4b31531e26340657375c61da4f5a2002b0e4b07f85437",
+                "sha256:ebf899165c96cba8468237c8bb0a0cc9e1a838ecd05fb0272934a83f33594a77"
+            ],
+            "index": "pypi",
+            "version": "==1.0.1"
         },
         "tornado": {
             "hashes": [
